@@ -1,5 +1,6 @@
 <?php
 
+use B13\TwentyThree\Resolver\ConfigurationResolver;
 use TYPO3\CMS\Core\Security\ContentSecurityPolicy\Directive;
 use TYPO3\CMS\Core\Security\ContentSecurityPolicy\Mutation;
 use TYPO3\CMS\Core\Security\ContentSecurityPolicy\MutationCollection;
@@ -12,7 +13,7 @@ $twentyThreeConfiguration = new MutationCollection(
     new Mutation(
         MutationMode::Extend,
         Directive::FrameSrc,
-        new UriValue(\B13\TwentyThree\Resource\Resolver\ConfigurationResolver::resolveVideoDomain()),
+        new UriValue(ConfigurationResolver::resolveVideoDomain()),
     ),
 );
 return Map::fromEntries(

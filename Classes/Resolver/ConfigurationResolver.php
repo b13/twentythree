@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace B13\TwentyThree\Resource\Resolver;
+namespace B13\TwentyThree\Resolver;
 
 /*
  * This file is part of TYPO3 CMS-based extension "twentythree" by b13.

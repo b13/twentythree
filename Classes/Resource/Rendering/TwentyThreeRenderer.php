@@ -12,7 +12,7 @@ namespace B13\TwentyThree\Resource\Rendering;
  * of the License, or any later version.
  */
 
-use B13\TwentyThree\Resource\Resolver\ConfigurationResolver;
+use B13\TwentyThree\Resolver\ConfigurationResolver;
 use B13\TwentyThree\Resource\TwentyThreeMedia;
 use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Page\PageRenderer;

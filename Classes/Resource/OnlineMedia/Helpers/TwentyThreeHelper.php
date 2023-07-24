@@ -12,7 +12,7 @@ namespace B13\TwentyThree\Resource\OnlineMedia\Helpers;
  * of the License, or any later version.
  */
 
-use B13\TwentyThree\Resource\Resolver\ConfigurationResolver;
+use B13\TwentyThree\Resolver\ConfigurationResolver;
 use B13\TwentyThree\Resource\TwentyThreeMedia;
 use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Resource\Folder;
