@@ -1,0 +1,53 @@
+{
+	"name": "b13/twentythree",
+	"description": "Provides an online media provider for the TwentyThree Video Marketing Platform",
+	"type": "typo3-cms-extension",
+	"homepage": "https://b13.com",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"TYPO3",
+		"FormEngine",
+		"Online Media",
+		"Online Media provider"
+	],
+	"authors": [
+		{
+			"name": "Oliver Bartsch",
+			"email": "oliver.bartsch@b13.com"
+		}
+	],
+	"require": {
+		"php": ">=7.4.0",
+		"typo3/cms-core": "^11.5 || ^12.4",
+		"typo3/cms-backend": "^11.5 || ^12.4"
+	},
+	"require-dev": {
+		"roave/security-advisories": "dev-master",
+		"phpstan/phpstan": "^1.8.11",
+		"phpunit/phpunit": "^9.5",
+		"typo3/coding-standards": "^0.5",
+		"typo3/testing-framework": "^7"
+	},
+	"config": {
+		"vendor-dir": ".Build/vendor",
+		"bin-dir": ".Build/bin",
+		"allow-plugins": {
+			"typo3/class-alias-loader": true,
+			"typo3/cms-composer-installers": true
+		},
+		"sort-packages": true
+	},
+	"extra": {
+		"typo3/cms": {
+			"extension-key": "twentythree",
+			"cms-package-dir": "{$vendor-dir}/typo3/cms",
+			"app-dir": ".Build",
+			"web-dir": ".Build/Web"
+		}
+	},
+	"autoload": {
+		"psr-4": {
+			"B13\\TwentyThree\\": "Classes/"
+		}
+	}
+}

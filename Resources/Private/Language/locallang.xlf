@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en-GB" datatype="plaintext" original="messages" product-name="twentythree" date="2023-07-21T13:25:00">
+		<header>
+			<description>Language Labels for the twentytree online media helper</description>
+			<authorName>b13 GmbH</authorName>
+			<authorEmail>typo3@b13.com</authorEmail>
+		</header>
+		<body>
+			<trans-unit id="extensionConfiguration.videoDomain">
+				<source>Video domain (e.g. video.twentythree.com) - use %env("SOME_NAME")% to resolve from env variable</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

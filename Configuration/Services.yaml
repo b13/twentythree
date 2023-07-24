@@ -1,0 +1,11 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  B13\TwentyThree\:
+    resource: '../Classes/*'
+
+  B13\TwentyThree\Resource\Rendering\TwentyThreeRenderer:
+    public: true
