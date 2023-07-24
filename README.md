@@ -12,6 +12,13 @@ and  activate it in the Extension Manager of your TYPO3 installation.
 
 Note: This extension is compatible with TYPO3 v11 and v12.
 
+### Configuration
+
+You have to specify the video domain to be used for building the URLs. This
+is especially important for TYPO3 v12, because the domain needs to be known
+for CSP. The video domain can be configured in the extension configuration.
+It's also possible to reference environment variables.
+
 ## Credits
 
 This extension was created by Oliver Bartsch in 2023 for [b13 GmbH, Stuttgart](https://b13.com).
