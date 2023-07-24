@@ -9,11 +9,13 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 defined('TYPO3') or die();
 
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['mediafile_ext'] .= ',' . TwentyThreeMedia::FILE_EXTENSION;
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['FileInfo']['fileExtensionToMimeType'][TwentyThreeMedia::FILE_EXTENSION] = TwentyThreeMedia::MIME_TYPE;
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['fal']['onlineMediaHelpers'][TwentyThreeMedia::FILE_EXTENSION] = TwentyThreeHelper::class;
-
-GeneralUtility::makeInstance(RendererRegistry::class)->registerRendererClass(TwentyThreeRenderer::class);
+if ($GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['twentythree']['videoDomain'] ?? false) {
+    // Only register media helper / renderer if videoDomain is set
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['mediafile_ext'] .= ',' . TwentyThreeMedia::FILE_EXTENSION;
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['FileInfo']['fileExtensionToMimeType'][TwentyThreeMedia::FILE_EXTENSION] = TwentyThreeMedia::MIME_TYPE;
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['fal']['onlineMediaHelpers'][TwentyThreeMedia::FILE_EXTENSION] = TwentyThreeHelper::class;
+    GeneralUtility::makeInstance(RendererRegistry::class)->registerRendererClass(TwentyThreeRenderer::class);
+}
 
 $iconRegistry = GeneralUtility::makeInstance(IconRegistry::class);
 $iconRegistry->registerMimeTypeIcon(TwentyThreeMedia::MIME_TYPE, 'mimetypes-media-video-twentythree');
