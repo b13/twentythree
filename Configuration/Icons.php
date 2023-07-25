@@ -7,6 +7,6 @@ return [
     ],
     'mimetypes-media-video-twentythree' => [
         'provider' => \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-        'source' => 'EXT:twentythree/Resources/Public/Icons/TwentyThree.svg',
+        'source' => 'EXT:twentythree/Resources/Public/Icons/Extension.svg',
     ],
 ];
