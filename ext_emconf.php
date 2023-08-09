@@ -1,7 +1,7 @@
 <?php
 
 $EM_CONF[$_EXTKEY] = [
-    'title' => 'b13 TwentyThree',
+    'title' => 'TwentyThree',
     'description' => 'Provides an online media provider for the TwentyThree Video Marketing Platform',
     'category' => 'misc',
     'author' => 'b13 GmbH',
@@ -9,7 +9,7 @@ $EM_CONF[$_EXTKEY] = [
     'author_company' => 'b13 GmbH',
     'state' => 'stable',
     'clearCacheOnLoad' => true,
-    'version' => '0.1.0',
+    'version' => '0.1.1',
     'constraints' => [
         'depends' => [
             'typo3' => '11.5.0-12.4.99',
