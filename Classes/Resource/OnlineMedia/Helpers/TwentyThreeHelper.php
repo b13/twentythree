@@ -52,6 +52,7 @@ class TwentyThreeHelper extends AbstractOEmbedHelper
     public function transformUrlToFile($url, Folder $targetFolder): ?File
     {
         $videoId = $token = null;
+        $url = rawurldecode($url);
         $videoDomain = preg_quote($this->videoDomain, '/');
 
         // Try to get the TwentyThree video id and a possible token from given url.
