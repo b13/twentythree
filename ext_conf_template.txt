@@ -1,2 +1,2 @@
-# cat=General; type=string; label=LLL:EXT:twentythree/Resources/Private/Language/locallang.xlf:extensionConfiguration.videoDomain
-videoDomain =
+# cat=General; type=string; label=LLL:EXT:twentythree/Resources/Private/Language/locallang.xlf:extensionConfiguration.videoDomains
+videoDomains =

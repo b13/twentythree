@@ -11,13 +11,11 @@ use TYPO3\CMS\Core\Security\ContentSecurityPolicy\UriValue;
 use TYPO3\CMS\Core\Type\Map;
 
 try {
-    $twentyThreeVideoDomain = new UriValue(ConfigurationResolver::resolveVideoDomain());
     $twentyThreeConfiguration = new MutationCollection(
-        new Mutation(
-            MutationMode::Extend,
-            Directive::FrameSrc,
-            $twentyThreeVideoDomain,
-        ),
+        new Mutation(MutationMode::Extend, Directive::FrameSrc, ...array_map(
+            static fn (string $videoDomain) => new UriValue($videoDomain),
+            ConfigurationResolver::resolveVideoDomains()
+        ))
     );
     return Map::fromEntries(
         [Scope::backend(), $twentyThreeConfiguration],

@@ -24,25 +24,15 @@ class TwentyThreeHelper extends AbstractOEmbedHelper
     private const PUBLIC_URL_PATTERN = 'https://%s/video/%s';
     private const PUBLIC_TOKEN_URL_PATTERN = 'https://%s/secret/%s/%s';
 
-    protected string $videoDomain;
-
-    public function __construct($extension)
-    {
-        parent::__construct($extension);
-        $this->videoDomain = ConfigurationResolver::resolveVideoDomain();
-    }
-
     protected function getOEmbedUrl($mediaId, $format = 'json'): string
     {
         $media = TwentyThreeMedia::createFromMediaId($mediaId);
-
         return sprintf(
             'https://%s/oembed?url=%s&format=%s&maxwidth=2048&maxheight=2048',
-            $this->videoDomain,
+            $media->getVideoDomain(),
             rawurlencode(
                 sprintf(
                     $media->hasToken() ? self::PUBLIC_TOKEN_URL_PATTERN : self::PUBLIC_URL_PATTERN,
-                    $this->videoDomain,
                     ...$media->getMediaIdParts('rawurlencode'))
             ),
             rawurlencode($format)
@@ -51,23 +41,32 @@ class TwentyThreeHelper extends AbstractOEmbedHelper
 
     public function transformUrlToFile($url, Folder $targetFolder): ?File
     {
-        $videoId = $token = null;
+        $videoId = $token = $resolvedVideoDomain = null;
         $url = rawurldecode($url);
-        $videoDomain = preg_quote($this->videoDomain, '/');
 
-        // Try to get the TwentyThree video id and a possible token from given url.
-        // Following formats are supported with and without http(s)://
-        // - <videoDomain>/video/<id>
-        // - <videoDomain>/secret/<id>/<token>
-        // - <videoDomain>/v.ihtml/player.html?photo_id=<id>&token=<token>
-        if (preg_match("#" . $videoDomain . "/video/(\d+)#", $url, $matches)) {
-            $videoId = $matches[1];
-        } elseif (preg_match("#" . $videoDomain . "/secret/(\d+)/([a-z0-9]+)#", $url, $matches)) {
-            [,$videoId, $token] = $matches;
-        } elseif (preg_match("#" . $videoDomain . "/v\.ihtml/player\.html.*(?:\?|&)photo_id=(\d+)#", $url, $matches)) {
-            $videoId = $matches[1];
-            if (preg_match("#" . $videoDomain . "/v\.ihtml/player\.html.*(?:\?|&)token=([a-z0-9]+)#", $url, $matches)) {
-                $token = $matches[1];
+        foreach (ConfigurationResolver::resolveVideoDomains() as $videoDomain) {
+            if (!str_contains($url, $videoDomain)) {
+                continue;
+            }
+            $resolvedVideoDomain = $videoDomain;
+            $videoDomain = preg_quote($videoDomain, '/');
+            // Try to get the TwentyThree video id and a possible token from given url.
+            // Following formats are supported with and without http(s)://
+            // - <videoDomain>/video/<id>
+            // - <videoDomain>/secret/<id>/<token>
+            // - <videoDomain>/v.ihtml/player.html?photo_id=<id>&token=<token>
+            if (preg_match("#" . $videoDomain . "/video/(\d+)#", $url, $matches)) {
+                $videoId = $matches[1];
+                break;
+            } elseif (preg_match("#" . $videoDomain . "/secret/(\d+)/([a-z0-9]+)#", $url, $matches)) {
+                [,$videoId, $token] = $matches;
+                break;
+            } elseif (preg_match("#" . $videoDomain . "/v\.ihtml/player\.html.*(?:\?|&)photo_id=(\d+)#", $url, $matches)) {
+                $videoId = $matches[1];
+                if (preg_match("#" . $videoDomain . "/v\.ihtml/player\.html.*(?:\?|&)token=([a-z0-9]+)#", $url, $matches)) {
+                    $token = $matches[1];
+                }
+                break;
             }
         }
 
@@ -75,7 +74,7 @@ class TwentyThreeHelper extends AbstractOEmbedHelper
             return null;
         }
 
-        $mediaId = $videoId;
+        $mediaId = $videoId . '|' . $resolvedVideoDomain;
 
         if (is_string($token) && $token !== '') {
             $mediaId .= '_' . $token;
@@ -89,7 +88,6 @@ class TwentyThreeHelper extends AbstractOEmbedHelper
         $media = TwentyThreeMedia::createFromMediaId($this->getOnlineMediaId($file));
         return sprintf(
             $media->hasToken() ? self::PUBLIC_TOKEN_URL_PATTERN : self::PUBLIC_URL_PATTERN,
-            $this->videoDomain,
             ...$media->getMediaIdParts()
         );
     }

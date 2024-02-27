@@ -18,19 +18,28 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class ConfigurationResolver
 {
-    public static function resolveVideoDomain(): string
+    public static function resolveVideoDomains(): array
     {
-        $videoDomain = (string)self::resolveByExtensionConfigutration('videoDomain');
+        $videoDomains = (string)self::resolveByExtensionConfigutration('videoDomains');
 
-        if (preg_match('/\%env\("(.*)"\)\%/', $videoDomain, $matches)) {
-            $videoDomain = self::resolveByEnvVar($matches[1]);
+        if ($videoDomains === '') {
+            $videoDomains = (string)self::resolveByExtensionConfigutration('videoDomain');
         }
 
-        if ($videoDomain === '') {
-            throw new ConfigurationException('You need to configure a video domain in the extension configuration.', 1690198819);
+        if (preg_match('/\%env\("(.*)"\)\%/', $videoDomains, $matches)) {
+            $videoDomains = self::resolveByEnvVar($matches[1]);
         }
 
-        return rtrim(preg_replace('/^(https|http):\/\//','', $videoDomain,1), '/');
+        $videoDomains = GeneralUtility::trimExplode(',', $videoDomains, true);
+
+        if ($videoDomains === []) {
+            throw new ConfigurationException('You need to configure at least one video domain in the extension configuration.', 1690198819);
+        }
+
+        return array_map(
+            static fn ($videoDomain) => rtrim(preg_replace('/^(https|http):\/\//','', $videoDomain, 1), '/'),
+            $videoDomains
+        );
     }
 
     /**

@@ -12,6 +12,7 @@ namespace B13\TwentyThree\Resource;
  * of the License, or any later version.
  */
 
+use B13\TwentyThree\Resolver\ConfigurationResolver;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class TwentyThreeMedia
@@ -20,24 +21,51 @@ class TwentyThreeMedia
     public const FILE_EXTENSION = 'twentythree';
 
     protected string $videoId;
+    protected string $videoDomain;
     protected string $token;
 
-    public function __construct(string $videoId, string $token = '')
+    public function __construct(string $videoId, string $videoDomain = '', string $token = '')
     {
         $this->videoId = $videoId;
+        $this->videoDomain = $videoDomain;
         $this->token = $token;
     }
 
     public static function createFromMediaId(string $mediaId): self
     {
-        return new self(
-            ...GeneralUtility::trimExplode('_', $mediaId, true, 2)
-        );
+        $mediaParts = GeneralUtility::trimExplode('_', $mediaId, true, 2);
+        $videoParts = GeneralUtility::trimExplode('|', (string)($mediaParts[0] ?? ''), true, 2);
+
+        $videoId = (string)($videoParts[0] ?? '');
+        $videoDomain = (string)($videoParts[1] ?? '');
+        $token = (string)($mediaParts[1] ?? '');
+
+        if ($videoDomain === '') {
+            $videoDomains = ConfigurationResolver::resolveVideoDomains();
+            $videoDomain = reset($videoDomains);
+        }
+
+        return new self($videoId, $videoDomain, $token);
     }
 
     public function getVideoId(): string
     {
         return $this->videoId;
+    }
+
+    public function setVideoDomain(string $videoDomain): void
+    {
+        $this->videoDomain = $videoDomain;
+    }
+
+    public function getVideoDomain(): string
+    {
+        return $this->videoDomain;
+    }
+
+    public function hasVideoDomain(): bool
+    {
+        return $this->videoDomain !== '';
     }
 
     public function getToken(): string
@@ -52,7 +80,7 @@ class TwentyThreeMedia
 
     public function getMediaIdParts(?string $callback = null): array
     {
-        $parts = array_filter([$this->videoId, $this->token]);
+        $parts = array_filter([$this->videoDomain, $this->videoId, $this->token]);
         return $callback !== null ? array_map($callback, $parts) : $parts;
     }
 }

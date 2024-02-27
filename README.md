@@ -14,10 +14,10 @@ Note: This extension is compatible with TYPO3 v11 and v12.
 
 ### Configuration
 
-You have to specify the video domain to be used for building the URLs. This
-is especially important for TYPO3 v12, because the domain needs to be known
-for CSP. The video domain can be configured in the extension configuration.
-It's also possible to reference environment variables.
+You have to specify the video domains to be used for building the URLs. This
+is especially important for TYPO3 v12, because the domains need to be known
+for CSP. The video domains can be configured in the extension configuration.
+It's also possible to reference environment variables `%env("SOME_NAME")%`.
 
 ## Credits
 

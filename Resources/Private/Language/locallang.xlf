@@ -8,7 +8,7 @@
 		</header>
 		<body>
 			<trans-unit id="extensionConfiguration.videoDomain">
-				<source>Video domain (e.g. video.twentythree.com) - use %env("SOME_NAME")% to resolve from env variable</source>
+				<source>Video domains - separated by comma - (e.g. video.twentythree.com) - use %env("SOME_NAME")% to resolve from env variable</source>
 			</trans-unit>
 		</body>
 	</file>
