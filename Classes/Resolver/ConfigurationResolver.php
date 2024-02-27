@@ -13,6 +13,7 @@ namespace B13\TwentyThree\Resolver;
  */
 
 use B13\TwentyThree\Exception\ConfigurationException;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -47,7 +48,11 @@ class ConfigurationResolver
      */
     public static function resolveByExtensionConfigutration(string $name)
     {
-        return GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('twentythree', $name);
+        try {
+            return GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('twentythree', $name);
+        } catch (ExtensionConfigurationPathDoesNotExistException $e) {
+            return null;
+        }
     }
 
     public static function resolveByEnvVar(string $name): string
