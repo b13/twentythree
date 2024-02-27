@@ -7,7 +7,7 @@
 			<authorEmail>typo3@b13.com</authorEmail>
 		</header>
 		<body>
-			<trans-unit id="extensionConfiguration.videoDomain">
+			<trans-unit id="extensionConfiguration.videoDomains">
 				<source>Video domains - separated by comma - (e.g. video.twentythree.com) - use %env("SOME_NAME")% to resolve from env variable</source>
 			</trans-unit>
 		</body>
