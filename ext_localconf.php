@@ -9,8 +9,10 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 defined('TYPO3') or die();
 
-if ($GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['twentythree']['videoDomain'] ?? false) {
-    // Only register media helper / renderer if videoDomain is set
+if ($GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['twentythree']['videoDomain'] ?? false
+    || $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['twentythree']['videoDomains'] ?? false
+) {
+    // Only register media helper / renderer if videoDomains are set
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['mediafile_ext'] .= ',' . TwentyThreeMedia::FILE_EXTENSION;
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['FileInfo']['fileExtensionToMimeType'][TwentyThreeMedia::FILE_EXTENSION] = TwentyThreeMedia::MIME_TYPE;
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['fal']['onlineMediaHelpers'][TwentyThreeMedia::FILE_EXTENSION] = TwentyThreeHelper::class;

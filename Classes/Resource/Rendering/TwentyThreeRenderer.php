@@ -139,7 +139,7 @@ class TwentyThreeRenderer implements FileRendererInterface
 
         return sprintf(
             self::PUBLIC_EMBED_URL_PATTERN,
-            ConfigurationResolver::resolveVideoDomain(),
+            $media->getVideoDomain(),
             http_build_query($queryParameters)
         );
     }
