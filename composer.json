@@ -18,8 +18,8 @@
 	],
 	"require": {
 		"php": ">=7.4.0",
-		"typo3/cms-core": "^11.5 || ^12.4",
-		"typo3/cms-backend": "^11.5 || ^12.4"
+		"typo3/cms-core": "^11.5 || ^12.4 || ^13.4",
+		"typo3/cms-backend": "^11.5 || ^12.4|| ^13.4"
 	},
 	"require-dev": {
 		"roave/security-advisories": "dev-master",
