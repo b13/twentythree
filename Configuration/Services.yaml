@@ -9,3 +9,8 @@ services:
 
   B13\TwentyThree\Resource\Rendering\TwentyThreeRenderer:
     public: true
+
+  B13\TwentyThree\EventListener\StartTimeMetadataExtractor:
+    tags:
+      - name: event.listener
+        identifier: 'twentythree-start-time-extractor'

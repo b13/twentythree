@@ -10,6 +10,12 @@
 			<trans-unit id="extensionConfiguration.videoDomains">
 				<source>Video domains - separated by comma - (e.g. video.twentythree.com) - use %env("SOME_NAME")% to resolve from env variable</source>
 			</trans-unit>
+			<trans-unit id="sys_file_metadata.start.label">
+				<source>Start (in seconds)</source>
+			</trans-unit>
+			<trans-unit id="sys_file_reference.start.label">
+				<source>Start (in seconds)</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

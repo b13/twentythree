@@ -14,6 +14,7 @@ namespace B13\TwentyThree\Resource\OnlineMedia\Helpers;
 
 use B13\TwentyThree\Resolver\ConfigurationResolver;
 use B13\TwentyThree\Resource\TwentyThreeMedia;
+use TYPO3\CMS\Core\Resource\Exception\OnlineMediaAlreadyExistsException;
 use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Resource\Folder;
 use TYPO3\CMS\Core\Resource\OnlineMedia\Helpers\AbstractOEmbedHelper;
@@ -41,7 +42,7 @@ class TwentyThreeHelper extends AbstractOEmbedHelper
 
     public function transformUrlToFile($url, Folder $targetFolder): ?File
     {
-        $videoId = $token = $resolvedVideoDomain = null;
+        $videoId = $token = $resolvedVideoDomain = $start = null;
         $url = rawurldecode($url);
 
         foreach (ConfigurationResolver::resolveVideoDomains() as $videoDomain) {
@@ -78,6 +79,15 @@ class TwentyThreeHelper extends AbstractOEmbedHelper
 
         if (is_string($token) && $token !== '') {
             $mediaId .= '_' . $token;
+        }
+
+        // Extract start parameter from URL
+        if (preg_match('/[?&]start=(\d+)/', $url, $startMatch)) {
+            $start = $startMatch[1];
+            // Append start parameter to media ID if present
+            if (is_string($start) && $start !== '') {
+                $mediaId .= '?start=' . $start;
+            }
         }
 
         return $this->transformMediaIdToFile($mediaId, $targetFolder, $this->extension);

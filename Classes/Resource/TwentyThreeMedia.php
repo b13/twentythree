@@ -33,7 +33,7 @@ class TwentyThreeMedia
 
     public static function createFromMediaId(string $mediaId): self
     {
-        $mediaParts = GeneralUtility::trimExplode('_', $mediaId, true, 2);
+        $mediaParts = GeneralUtility::trimExplode('_', explode('?', $mediaId)[0] ?? '', true, 2);
         $videoParts = GeneralUtility::trimExplode('|', (string)($mediaParts[0] ?? ''), true, 2);
 
         $videoId = (string)($videoParts[0] ?? '');

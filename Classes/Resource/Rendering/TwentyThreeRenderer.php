@@ -146,12 +146,19 @@ class TwentyThreeRenderer implements FileRendererInterface
 
     protected function collectOptions(array $options, FileInterface $file): array
     {
-
         // Check for an autoplay option at the file reference itself, if not overridden yet.
         if (!isset($options['autoplay']) && $file instanceof FileReference) {
             $autoplay = $file->getProperty('autoplay');
             if ($autoplay !== null) {
                 $options['autoplay'] = $autoplay;
+            }
+        }
+
+        // Check for the start option at the file reference itself, if not overridden yet.
+        if (!isset($options['start']) && $file instanceof FileReference) {
+            $start = $file->getProperty('start');
+            if ($start !== null) {
+                $options['start'] = $start;
             }
         }
 
