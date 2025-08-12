@@ -10,7 +10,7 @@ You can also download the extension from the
 [TYPO3 Extension Repository](https://extensions.typo3.org/extension/twentythree/)
 and  activate it in the Extension Manager of your TYPO3 installation.
 
-Note: This extension is compatible with TYPO3 v11 and v12.
+Note: This extension is compatible with TYPO3 v11, v12 and v13.
 
 ### Configuration
 
