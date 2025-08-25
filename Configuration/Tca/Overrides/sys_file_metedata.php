@@ -20,6 +20,6 @@
  \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
      'sys_file_metadata',
      'start',
-     TYPO3\CMS\Core\Resource\FileType::VIDEO->value,
+     TYPO3\CMS\Core\Resource\AbstractFile::FILETYPE_VIDEO,
      'after:duration'
  );
